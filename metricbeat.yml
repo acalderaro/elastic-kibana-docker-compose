@@ -1,0 +1,19 @@
+metricbeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+
+output.elasticsearch:
+  hosts: '${ELASTICSEARCH_HOSTS:}'
+  username: '${ELASTICSEARCH_USERNAME:}'
+  password: '${ELASTICSEARCH_PASSWORD:}'
+  ssl.certificate_authorities: 
+    - '${ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES:}'
+  ssl.certificate: '${ELASTICSEARCH_SSL_CERTIFICATE:}'
+  ssl.key: '${ELASTICSEARCH_SSL_KEY:}'
+
+# enabled modules for monitoring (e.g. elasticsearch-xpack)
+metricbeat.modules:
+- module: elasticsearch
+  xpack.enabled: true
+  period: 10s
+  hosts: '${ELASTICSEARCH_HOSTS:}'
